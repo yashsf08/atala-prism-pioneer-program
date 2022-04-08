@@ -8,7 +8,7 @@ import kotlinx.coroutines.runBlocking
 
 val environment = "ppp.atalaprism.io"
 val grpcOptions = GrpcOptions("https", environment, 50053)
-val nodeAuthApi = NodeAuthApiImpl(grpcOptions)
+val nodeAuthApi = NodeAuthApiImpl(GrpcOptions("https", environment, 50053))
 
 fun main(args: Array<String>) {
     val batchId = try { CredentialBatchId.fromString(args[0])!! } catch (e: Exception) {throw Exception("expected batch id as first argument")}

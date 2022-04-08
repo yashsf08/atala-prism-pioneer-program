@@ -47,7 +47,7 @@ fun waitUntilConfirmed(nodePublicApi: NodePublicApi, operationId: AtalaOperation
 
 val environment = "ppp.atalaprism.io"
 val grpcOptions = GrpcOptions("https", environment, 50053)
-val nodeAuthApi = NodeAuthApiImpl(grpcOptions)
+val nodeAuthApi = NodeAuthApiImpl(GrpcOptions("https", environment, 50053))
 
 @PrismSdkInternal
 fun transactionId(oid: AtalaOperationId): String {
