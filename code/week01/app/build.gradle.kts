@@ -1,3 +1,16 @@
+import io.iohk.atala.prism.api.*
+import io.iohk.atala.prism.api.models.AtalaOperationId
+import io.iohk.atala.prism.api.models.AtalaOperationStatus
+import io.iohk.atala.prism.api.node.*
+import io.iohk.atala.prism.crypto.derivation.KeyDerivation
+import io.iohk.atala.prism.crypto.derivation.MnemonicCode
+import io.iohk.atala.prism.crypto.keys.ECKeyPair
+import io.iohk.atala.prism.identity.*
+import io.iohk.atala.prism.protos.*
+import kotlinx.coroutines.*
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(11))
@@ -22,7 +35,7 @@ repositories {
     google()
     maven("https://plugins.gradle.org/m2/")
     maven {
-        url = uri("https://maven.pkg.github.com/input-output-hk/better-parse")
+        url = uri("https://maven.pkg.github.com/input-output-hk/atala-prism-sdk")
         credentials {
             username = "atala-dev"
             password = System.getenv("PRISM_SDK_PASSWORD")
@@ -47,16 +60,16 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
     // needed for cryptography primitives implementation
-    implementation("io.iohk.atala:prism-crypto:1.2.0")
+    implementation("io.iohk.atala:prism-crypto:v1.3.2")
 
     // needed to deal with DIDs
-    implementation("io.iohk.atala:prism-identity:1.2.0")
+    implementation("io.iohk.atala:prism-identity:v1.3.2")
 
     // needed to deal with credentials
-    implementation("io.iohk.atala:prism-credentials:1.2.0")
+    implementation("io.iohk.atala:prism-credentials:v1.3.2")
 
     // needed to interact with PRISM Node service
-    implementation("io.iohk.atala:prism-api:1.2.0")
+    implementation("io.iohk.atala:prism-api:v1.3.2")
 
     // needed for the credential content, bring the latest version
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
