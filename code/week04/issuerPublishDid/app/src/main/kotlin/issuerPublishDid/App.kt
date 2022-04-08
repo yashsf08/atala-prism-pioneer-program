@@ -67,9 +67,9 @@ fun main(args: Array<String>) {
     println("wrote seed to file $seedFile")
     println()
 
-    val issuerMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, PrismKeyType.MASTER_KEY, 0)
-    val issuerIssuingKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, PrismKeyType.ISSUING_KEY, 0)
-    val issuerRevocationKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, PrismKeyType.REVOCATION_KEY, 0)
+    val issuerMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, MasterKeyUsage, 0)
+    val issuerIssuingKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, IssuingKeyUsage, 0)
+    val issuerRevocationKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, RevocationKeyUsage, 0)
     val issuerUnpublishedDid = PrismDid.buildExperimentalLongFormFromKeys(
             issuerMasterKeyPair.publicKey,
             issuerIssuingKeyPair.publicKey,

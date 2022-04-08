@@ -12,9 +12,9 @@ import kotlinx.serialization.json.JsonPrimitive
 
 fun main() {
     val issuerSeed = KeyDerivation.binarySeed(KeyDerivation.randomMnemonicCode(), "passphrase")
-    val issuerMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, PrismKeyType.MASTER_KEY, 0)
-    val issuerIssuingKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, PrismKeyType.ISSUING_KEY, 0)
-    val issuerRevocationKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, PrismKeyType.REVOCATION_KEY, 0)
+    val issuerMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, MasterKeyUsage, 0)
+    val issuerIssuingKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, IssuingKeyUsage, 0)
+    val issuerRevocationKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, RevocationKeyUsage, 0)
     val issuerUnpublishedDid = PrismDid.buildExperimentalLongFormFromKeys(
             issuerMasterKeyPair.publicKey,
             issuerIssuingKeyPair.publicKey,
@@ -28,7 +28,7 @@ fun main() {
     println()
 
     val holderSeed = KeyDerivation.binarySeed(KeyDerivation.randomMnemonicCode(), "passphrase")
-    val holderMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(holderSeed, 0, PrismKeyType.MASTER_KEY, 0)
+    val holderMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(holderSeed, 0, MasterKeyUsage, 0)
     val holderUnpublishedDid = PrismDid.buildLongFormFromMasterPublicKey(holderMasterKeyPair.publicKey)
 
     val holderDidCanonical = holderUnpublishedDid.asCanonical().did

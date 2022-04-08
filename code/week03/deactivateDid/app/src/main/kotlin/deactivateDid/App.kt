@@ -70,7 +70,7 @@ fun main(args: Array<String>) {
     val oldHash = Sha256Digest.fromHex(File(oldHashFile).readText())
     println("read old hash from $oldHashFile: ${oldHash.hexValue}")
 
-    val masterKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, PrismKeyType.MASTER_KEY, 0)
+    val masterKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, MasterKeyUsage, 0)
     val unpublishedDid = PrismDid.buildLongFormFromMasterPublicKey(masterKeyPair.publicKey)
 
     val didCanonical = unpublishedDid.asCanonical().did

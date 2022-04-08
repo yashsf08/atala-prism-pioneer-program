@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
     println("wrote seed to file $seedFile")
     println()
 
-    val masterKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, PrismKeyType.MASTER_KEY, 0)
+    val masterKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, MasterKeyUsage, 0)
     val unpublishedDid = PrismDid.buildLongFormFromMasterPublicKey(masterKeyPair.publicKey)
 
     val didCanonical = unpublishedDid.asCanonical().did

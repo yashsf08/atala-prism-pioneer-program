@@ -71,9 +71,9 @@ fun main(args: Array<String>) {
     val oldHash = Sha256Digest.fromHex(File(oldHashFile).readText())
     println("read old hash from $oldHashFile: ${oldHash.hexValue}")
 
-    val issuerMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, PrismKeyType.MASTER_KEY, 0)
-    val issuerIssuingKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, PrismKeyType.ISSUING_KEY, 0)
-    val issuerRevocationKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, PrismKeyType.REVOCATION_KEY, 0)
+    val issuerMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, MasterKeyUsage, 0)
+    val issuerIssuingKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, IssuingKeyUsage, 0)
+    val issuerRevocationKeyPair = KeyGenerator.deriveKeyFromFullPath(issuerSeed, 0, RevocationKeyUsage, 0)
     val issuerUnpublishedDid = PrismDid.buildExperimentalLongFormFromKeys(
             issuerMasterKeyPair.publicKey,
             issuerIssuingKeyPair.publicKey,

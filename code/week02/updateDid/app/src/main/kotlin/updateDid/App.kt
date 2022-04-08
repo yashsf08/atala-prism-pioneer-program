@@ -71,8 +71,8 @@ fun main(args: Array<String>) {
     val oldHash = Sha256Digest.fromHex(File(oldHashFile).readText())
     println("read old hash from $oldHashFile: ${oldHash.hexValue}")
 
-    val masterKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, PrismKeyType.MASTER_KEY, 0)
-    val issuingKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, PrismKeyType.ISSUING_KEY, 0)
+    val masterKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, MasterKeyUsage, 0)
+    val issuingKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, IssuingKeyUsage, 0)
     val unpublishedDid = PrismDid.buildLongFormFromMasterPublicKey(masterKeyPair.publicKey)
 
     val didCanonical = unpublishedDid.asCanonical().did
@@ -88,7 +88,7 @@ fun main(args: Array<String>) {
             mapOf(PrismDid.DEFAULT_MASTER_KEY_ID to masterKeyPair.privateKey))
     val issuingKeyInfo = PrismKeyInformation(
             PrismDid.DEFAULT_ISSUING_KEY_ID,
-            PrismKeyType.ISSUING_KEY,
+            IssuingKeyUsage,
             issuingKeyPair.publicKey)
     val updateDidInfo = nodePayloadGenerator.updateDid(
             previousHash = oldHash,

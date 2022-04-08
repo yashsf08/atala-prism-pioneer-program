@@ -47,9 +47,9 @@ fun waitUntilConfirmed(nodePublicApi: NodePublicApi, operationId: AtalaOperation
 // Creates a list of potentially useful keys out of a mnemonic code
 fun prepareKeysFromMnemonic(mnemonic: MnemonicCode, pass: String): Map<String, ECKeyPair> {
     val seed = KeyDerivation.binarySeed(mnemonic, pass)
-    val issuerMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, PrismKeyType.MASTER_KEY, 0)
-    val issuerIssuingKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, PrismKeyType.ISSUING_KEY, 0)
-    val issuerRevocationKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, PrismKeyType.REVOCATION_KEY, 0)
+    val issuerMasterKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, MasterKeyUsage, 0)
+    val issuerIssuingKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, IssuingKeyUsage, 0)
+    val issuerRevocationKeyPair = KeyGenerator.deriveKeyFromFullPath(seed, 0, RevocationKeyUsage, 0)
     return mapOf(
         Pair(PrismDid.DEFAULT_MASTER_KEY_ID, issuerMasterKeyPair),
         Pair(PrismDid.DEFAULT_ISSUING_KEY_ID, issuerIssuingKeyPair),
@@ -130,7 +130,7 @@ fun main() {
     val issuingKeyInfo =
         PrismKeyInformation(
             PrismDid.DEFAULT_ISSUING_KEY_ID,
-            PrismKeyType.ISSUING_KEY,
+            IssuingKeyUsage,
             issuerKeys[PrismDid.DEFAULT_ISSUING_KEY_ID]?.publicKey!!)
     // creation of UpdateDid operation
     val addIssuingKeyDidInfo = issuerNodePayloadGenerator.updateDid(
@@ -208,7 +208,7 @@ fun main() {
     // Issuer revokes the credential
     val revocationKeyInfo = PrismKeyInformation(
             PrismDid.DEFAULT_REVOCATION_KEY_ID,
-            PrismKeyType.REVOCATION_KEY,
+            RevocationKeyUsage,
             issuerKeys[PrismDid.DEFAULT_REVOCATION_KEY_ID]?.publicKey!!)
     // creation of UpdateDID operation
     val addRevocationKeyDidInfo = issuerNodePayloadGenerator.updateDid(
